@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stories by Ster — Illustrations by Y. Ster</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080604;
+  --bg2:#0f0d0a;
+  --surface:#181410;
+  --cream:#F2EBE0;
+  --warm:#D4C4A8;
+  --terracotta:#C4622A;
+  --gold:#D4A853;
+  --gold-dim:#8B6E35;
+  --muted:#5A5048;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Raleway',sans-serif;font-weight:300;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* ── GRAIN OVERLAY ── */
+body::before{
+content:’’;position:fixed;inset:0;z-index:1000;pointer-events:none;
+background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.04’/%3E%3C/svg%3E”);
+opacity:0.4;
+}
+
+/* ── NAV ── */
+nav{
+position:fixed;top:0;left:0;right:0;z-index:500;
+display:flex;align-items:center;justify-content:space-between;
+padding:1.8rem 5rem;
+background:linear-gradient(to bottom,rgba(8,6,4,0.95),rgba(8,6,4,0));
+transition:background 0.4s;
+}
+nav.scrolled{background:rgba(8,6,4,0.97);backdrop-filter:blur(20px)}
+.nav-logo{
+font-family:‘Cormorant Garamond’,serif;
+font-size:1.1rem;font-weight:400;letter-spacing:0.12em;
+color:var(–cream);
+}
+.nav-logo em{font-style:italic;color:var(–terracotta)}
+.nav-links{display:flex;gap:3rem;list-style:none}
+.nav-links a{
+font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;
+color:var(–muted);transition:color 0.3s;
+position:relative;
+}
+.nav-links a::after{
+content:’’;position:absolute;bottom:-4px;left:0;right:0;
+height:1px;background:var(–terracotta);
+transform:scaleX(0);transition:transform 0.3s;
+}
+.nav-links a:hover{color:var(–cream)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+/* ── HERO ── */
+.hero{
+position:relative;height:100vh;min-height:700px;
+display:grid;grid-template-columns:1fr 1fr;
+overflow:hidden;
+}
+.hero-left{
+position:relative;z-index:2;
+display:flex;flex-direction:column;justify-content:flex-end;
+padding:0 5rem 6rem;
+background:linear-gradient(to right,rgba(8,6,4,1) 0%,rgba(8,6,4,0.85) 70%,rgba(8,6,4,0) 100%);
+}
+.hero-right{
+position:relative;overflow:hidden;
+}
+.hero-right img{
+width:100%;height:100%;object-fit:cover;object-position:center top;
+display:block;
+filter:brightness(0.7) contrast(1.1);
+transform:scale(1.06);
+animation:heroZoom 16s ease-out forwards;
+}
+@keyframes heroZoom{to{transform:scale(1.0)}}
+.hero-right::after{
+content:’’;position:absolute;inset:0;
+background:linear-gradient(to left,transparent 50%,rgba(8,6,4,0.6) 100%);
+}
+.hero-eyebrow{
+font-size:0.58rem;letter-spacing:0.45em;text-transform:uppercase;
+color:var(–terracotta);margin-bottom:1.5rem;
+display:flex;align-items:center;gap:1rem;
+animation:slideIn 1.2s ease-out 0.2s both;
+}
+.hero-eyebrow::before{content:’’;width:2.5rem;height:1px;background:var(–terracotta);display:block}
+.hero-title-main{
+font-family:‘Playfair Display’,serif;
+font-size:clamp(4.5rem,8vw,7.5rem);
+font-weight:700;line-height:0.88;
+color:var(–cream);letter-spacing:-0.01em;
+display:block;
+animation:slideIn 1.2s ease-out 0.35s both;
+}
+.hero-title-by{
+font-family:‘Playfair Display’,serif;
+font-size:clamp(3rem,5.5vw,5.5rem);
+font-weight:400;font-style:italic;
+color:var(–terracotta);line-height:0.95;
+display:block;margin-bottom:2.5rem;
+animation:slideIn 1.2s ease-out 0.5s both;
+}
+@keyframes slideIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.hero-desc{
+font-size:0.85rem;line-height:2;
+color:rgba(242,235,224,0.55);
+max-width:380px;margin-bottom:3rem;letter-spacing:0.03em;
+animation:slideIn 1.2s ease-out 0.65s both;
+}
+.hero-cta{
+display:inline-flex;align-items:center;gap:1rem;
+font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;
+color:var(–cream);
+animation:slideIn 1.2s ease-out 0.8s both;
+}
+.hero-cta-line{width:3rem;height:1px;background:var(–terracotta);transition:width 0.4s}
+.hero-cta:hover .hero-cta-line{width:5rem}
+.hero-scroll{
+position:absolute;bottom:3rem;right:4rem;z-index:3;
+display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+}
+.hero-scroll-line{width:1px;height:70px;background:linear-gradient(to bottom,var(–terracotta),transparent);animation:scrollPulse 2.5s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(0.5)}50%{opacity:1;transform:scaleY(1)}}
+.hero-scroll span{font-size:0.48rem;letter-spacing:0.35em;color:rgba(242,235,224,0.3);writing-mode:vertical-rl;text-transform:uppercase}
+
+/* ── SECTION DIVIDERS ── */
+.sep{
+display:flex;align-items:center;gap:2rem;
+padding:5rem 5rem 3rem;
+}
+.sep-line{flex:1;height:1px;background:rgba(212,168,83,0.1)}
+.sep-text{font-size:0.56rem;letter-spacing:0.45em;text-transform:uppercase;color:var(–muted);white-space:nowrap}
+
+/* ── PORTFOLIO ── */
+.portfolio{padding:0 5rem 6rem}
+.port-header{
+display:flex;align-items:flex-end;justify-content:space-between;
+margin-bottom:4rem;
+border-bottom:1px solid rgba(212,168,83,0.08);
+padding-bottom:2rem;
+}
+.port-title-line1{
+font-family:‘Playfair Display’,serif;
+font-size:clamp(1.8rem,3.5vw,2.8rem);
+font-weight:400;color:var(–cream);
+display:block;line-height:1;
+}
+.port-title-line2{
+font-family:‘Playfair Display’,serif;
+font-size:clamp(1.8rem,3.5vw,2.8rem);
+font-weight:400;font-style:italic;
+color:var(–terracotta);display:block;line-height:1;
+}
+.port-count{
+font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
+color:var(–muted);
+}
+
+/* Masonry — images show in full, no crop */
+.gallery{columns:3;column-gap:1rem}
+.gi{
+break-inside:avoid;margin-bottom:1rem;
+cursor:pointer;position:relative;overflow:hidden;
+border:1px solid rgba(212,168,83,0.06);
+}
+.gi img{
+width:100%;height:auto;display:block;
+transition:transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94),filter 0.5s ease;
+filter:brightness(0.85) saturate(0.95);
+}
+.gi:hover img{transform:scale(1.04);filter:brightness(1) saturate(1.05)}
+.gi-overlay{
+position:absolute;inset:0;
+background:linear-gradient(to top,rgba(8,6,4,0.7) 0%,transparent 50%);
+opacity:0;transition:opacity 0.4s;
+display:flex;align-items:flex-end;padding:1.5rem;
+}
+.gi:hover .gi-overlay{opacity:1}
+.gi-label{
+font-family:‘Cormorant Garamond’,serif;font-style:italic;
+font-size:0.9rem;color:var(–cream);letter-spacing:0.06em;
+}
+
+/* ── ABOUT ── */
+.about{
+display:grid;grid-template-columns:5fr 7fr;
+background:var(–bg2);
+margin:0 5rem 6rem;
+border:1px solid rgba(212,168,83,0.07);
+}
+.about-img{position:relative;overflow:hidden;min-height:560px}
+.about-img img{
+width:100%;height:100%;object-fit:cover;object-position:center top;
+display:block;filter:brightness(0.8) sepia(8%) contrast(1.05);
+}
+.about-img::after{
+content:’’;position:absolute;inset:0;
+background:linear-gradient(to right,transparent 60%,var(–bg2));
+}
+.about-content{padding:5rem 5rem 5rem 4rem;display:flex;flex-direction:column;justify-content:center}
+.about-eyebrow{
+font-size:0.56rem;letter-spacing:0.45em;text-transform:uppercase;
+color:var(–terracotta);margin-bottom:1.5rem;
+display:flex;align-items:center;gap:0.8rem;
+}
+.about-eyebrow::before{content:’’;width:2rem;height:1px;background:var(–terracotta);display:block}
+.about-h1{
+font-family:‘Playfair Display’,serif;
+font-size:clamp(2rem,3vw,2.6rem);font-weight:400;
+color:var(–cream);line-height:1.15;display:block;
+}
+.about-h2{
+font-family:‘Playfair Display’,serif;
+font-size:clamp(2rem,3vw,2.6rem);font-weight:400;font-style:italic;
+color:var(–gold);line-height:1.15;display:block;margin-bottom:2rem;
+}
+.about-rule{width:3rem;height:1px;background:rgba(212,168,83,0.3);margin-bottom:2rem}
+.about-body{
+font-size:0.84rem;line-height:2.1;
+color:rgba(242,235,224,0.5);margin-bottom:2.5rem;
+}
+.about-cta{
+display:inline-flex;align-items:center;gap:0.8rem;
+font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;
+color:var(–gold);
+}
+.about-cta-line{width:2rem;height:1px;background:var(–gold);transition:width 0.4s}
+.about-cta:hover .about-cta-line{width:4rem}
+
+/* ── CONTACT ── */
+.contact{
+text-align:center;padding:7rem 5rem 10rem;
+position:relative;overflow:hidden;
+}
+.contact::before{
+content:’’;position:absolute;
+top:50%;left:50%;transform:translate(-50%,-50%);
+width:600px;height:600px;border-radius:50%;
+background:radial-gradient(circle,rgba(196,98,42,0.04) 0%,transparent 70%);
+pointer-events:none;
+}
+.contact-eyebrow{
+font-size:0.56rem;letter-spacing:0.45em;text-transform:uppercase;
+color:var(–terracotta);margin-bottom:1.5rem;
+display:flex;align-items:center;justify-content:center;gap:1rem;
+}
+.contact-eyebrow::before,.contact-eyebrow::after{content:’’;width:2.5rem;height:1px;background:var(–terracotta);display:block}
+.contact-h1{
+font-family:‘Playfair Display’,serif;
+font-size:clamp(3rem,6vw,5.5rem);font-weight:400;
+color:var(–cream);line-height:0.95;display:block;
+}
+.contact-h2{
+font-family:‘Playfair Display’,serif;
+font-size:clamp(3rem,6vw,5.5rem);font-weight:400;font-style:italic;
+color:var(–terracotta);line-height:0.95;display:block;margin-bottom:2.5rem;
+}
+.contact-body{
+font-size:0.84rem;line-height:2;color:rgba(242,235,224,0.45);
+max-width:420px;margin:0 auto 3rem;
+}
+.contact-btn{
+display:inline-flex;align-items:center;gap:1rem;
+padding:1.1rem 3.5rem;
+border:1px solid rgba(196,98,42,0.4);
+color:var(–terracotta);
+font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;
+transition:all 0.35s;
+position:relative;overflow:hidden;
+}
+.contact-btn::before{
+content:’’;position:absolute;inset:0;
+background:var(–terracotta);transform:scaleX(0);transform-origin:left;
+transition:transform 0.35s;
+}
+.contact-btn:hover::before{transform:scaleX(1)}
+.contact-btn span{position:relative;z-index:1;transition:color 0.35s}
+.contact-btn:hover span{color:var(–cream)}
+
+/* ── FOOTER ── */
+footer{
+border-top:1px solid rgba(212,168,83,0.07);
+padding:2.5rem 5rem;
+display:flex;align-items:center;justify-content:space-between;
+}
+.footer-logo{
+font-family:‘Cormorant Garamond’,serif;
+font-size:1rem;color:var(–muted);letter-spacing:0.1em;
+}
+.footer-logo em{font-style:italic;color:rgba(212,168,83,0.4)}
+.footer-copy{font-size:0.65rem;color:var(–muted);letter-spacing:0.08em}
+
+/* ── LIGHTBOX ── */
+#lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(4,3,2,0.98);align-items:center;justify-content:center}
+#lightbox.open{display:flex}
+#lb-img{max-width:90vw;max-height:90vh;object-fit:contain;display:block}
+#lb-close{position:fixed;top:2rem;right:2.5rem;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;opacity:0.4;line-height:1;transition:opacity 0.2s;font-weight:200}
+#lb-close:hover{opacity:1}
+#lb-prev,#lb-next{position:fixed;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:3rem;cursor:pointer;padding:2rem;opacity:0.25;transition:opacity 0.2s;line-height:1;font-weight:200}
+#lb-prev{left:0}#lb-next{right:0}
+#lb-prev:hover,#lb-next:hover{opacity:0.8}
+#lb-count{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);font-size:0.6rem;letter-spacing:0.25em;color:rgba(255,255,255,0.25)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px){
+nav{padding:1.5rem 2rem}
+.nav-links{display:none}
+.hero{grid-template-columns:1fr;height:auto;min-height:100vh}
+.hero-left{padding:8rem 2rem 4rem;background:rgba(8,6,4,0.85)}
+.hero-right{position:absolute;inset:0;z-index:-1}
+.sep{padding:4rem 2rem 2.5rem}
+.portfolio{padding:0 2rem 5rem}
+.gallery{columns:2;column-gap:0.6rem}
+.gi{margin-bottom:0.6rem}
+.about{grid-template-columns:1fr;margin:0 2rem 5rem}
+.about-img{min-height:320px}
+.about-content{padding:3rem 2rem}
+.contact{padding:5rem 2rem 7rem}
+footer{flex-direction:column;gap:0.8rem;text-align:center;padding:2rem}
+}
+@media(max-width:500px){
+.gallery{columns:1}
+.hero-title-main{font-size:3.5rem}
+.hero-title-by{font-size:3rem}
+}
+</style>
+
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Stories <em>by Ster</em></a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Illustration &amp; Storytelling</p>
+    <span class="hero-title-main">STORIES</span>
+    <span class="hero-title-by">by Ster</span>
+    <p class="hero-desc">Where imagination meets ink — original illustrations that breathe life into characters, mythology, and the quietly extraordinary.</p>
+    <a href="#portfolio" class="hero-cta">
+      <div class="hero-cta-line"></div>
+      Enter the gallery
+    </a>
+  </div>
+  <div class="hero-right">
+    <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/Hero.jpeg" alt="Florence by Night — Y. Ster" />
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div class="sep">
+  <div class="sep-line"></div>
+  <span class="sep-text">Selected Works</span>
+  <div class="sep-line"></div>
+</div>
+
+<section class="portfolio" id="portfolio">
+  <div class="port-header">
+    <div>
+      <span class="port-title-line1">The</span>
+      <span class="port-title-line2">Collection</span>
+    </div>
+    <span class="port-count">12 works</span>
+  </div>
+  <div class="gallery">
+    <div class="gi" onclick="lbOpen(0)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4171.jpeg" alt="Antigone" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Antigone — Sophocles</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(1)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4176.png" alt="Antigone II" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Antigone II</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(2)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4453.jpeg" alt="Sunflowers" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Sunflowers</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(3)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_3779.jpeg" alt="The Red Scarf" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">The Red Scarf</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(4)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_2990.png" alt="Winter Skater" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Winter Skater</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(5)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_1373.jpeg" alt="Florence" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Florence</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(6)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4425.jpeg" alt="The White Horse" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">The White Horse</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(7)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_7428.jpeg" alt="Moon" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Reaching for the Moon</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(8)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_6029.jpeg" alt="Café" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Café</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(9)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_1348.jpeg" alt="Florence by Night" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Florence by Night</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(10)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4115.jpeg" alt="Letters" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Letters</span></div>
+    </div>
+    <div class="gi" onclick="lbOpen(11)">
+      <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_6032.jpeg" alt="Tuscany" loading="lazy">
+      <div class="gi-overlay"><span class="gi-label">Tuscany</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="sep">
+  <div class="sep-line"></div>
+  <span class="sep-text">The Artist</span>
+  <div class="sep-line"></div>
+</div>
+
+<div class="about" id="about">
+  <div class="about-img">
+    <img src="https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/Artist.jpeg" alt="Y. Ster" />
+  </div>
+  <div class="about-content">
+    <p class="about-eyebrow">About</p>
+    <span class="about-h1">The artist</span>
+    <span class="about-h2">behind the stories</span>
+    <div class="about-rule"></div>
+    <p class="about-body">Y. Ster is an illustrator whose work lives at the intersection of myth, memory and the everyday. Rooted in Florence and shaped by a deep love of storytelling, each image carries its own inner world.<br><br>From ancient tragedy to the warmth of a Tuscan afternoon, the work spans worlds while remaining unmistakably human.</p>
+    <a href="#contact" class="about-cta">
+      <div class="about-cta-line"></div>
+      Commission a work
+    </a>
+  </div>
+</div>
+
+<section class="contact" id="contact">
+  <p class="contact-eyebrow">Get in touch</p>
+  <span class="contact-h1">Let's create</span>
+  <span class="contact-h2">something together</span>
+  <p class="contact-body">Whether you're looking for custom illustrations, collaborations, or simply want to say hello — the door is always open.</p>
+  <a href="mailto:ster.yek@gmail.com" class="contact-btn">
+    <span>Send a message &rarr;</span>
+  </a>
+</section>
+
+<footer>
+  <span class="footer-logo">Stories <em>by Ster</em></span>
+  <span class="footer-copy">&copy; 2026 Y. Ster &mdash; All rights reserved</span>
+</footer>
+
+<div id="lightbox" onclick="lbClose()">
+  <button id="lb-close" onclick="lbClose()">&times;</button>
+  <button id="lb-prev" onclick="event.stopPropagation();lbMove(-1)">&#8249;</button>
+  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()"/>
+  <button id="lb-next" onclick="event.stopPropagation();lbMove(1)">&#8250;</button>
+  <div id="lb-count"></div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>80);
+});
+const imgs=[
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4171.jpeg",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4176.png",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4453.jpeg",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_3779.jpeg",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_2990.png",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_1373.jpeg",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4425.jpeg",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_7428.jpeg",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_6029.jpeg",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_1348.jpeg",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_4115.jpeg",
+  "https://raw.githubusercontent.com/yeksters/StoriesBySter-/main/IMG_6032.jpeg"
+];
+let cur=0;
+function lbOpen(i){cur=i;document.getElementById('lb-img').src=imgs[i];document.getElementById('lb-count').textContent=(i+1)+' / '+imgs.length;document.getElementById('lightbox').classList.add('open');document.addEventListener('keydown',lbKey)}
+function lbClose(){document.getElementById('lightbox').classList.remove('open');document.removeEventListener('keydown',lbKey)}
+function lbMove(d){cur=(cur+d+imgs.length)%imgs.length;document.getElementById('lb-img').src=imgs[cur];document.getElementById('lb-count').textContent=(cur+1)+' / '+imgs.length}
+function lbKey(e){if(e.key==='Escape')lbClose();if(e.key==='ArrowLeft')lbMove(-1);if(e.key==='ArrowRight')lbMove(1)}
+</script>
+
+</body>
+</html>
